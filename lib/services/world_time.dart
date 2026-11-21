@@ -19,11 +19,11 @@ class WorldTime {
     Map data = jsonDecode(response.body);
 
 
-    String daytime = data["daytime"];
-    String offset = data["utc_offset"].substring(1,3);
+    String daytime = data["datetime"];
+    //String offset = data["utc_offset"].substring(1,3);
 
     DateTime now = DateTime.parse(daytime);
-    now = now.add(Duration(hours: int.parse(offset)));
+    //now = now.add(Duration(hours: int.parse(offset)));
 
     time = now.toString();
   }
