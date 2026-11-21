@@ -12,19 +12,26 @@ class WorldTime {
   WorldTime({ this.location, this.flag, this.url });
 
   Future<void> getTime() async {
-    Response response = await get(
-      Uri.parse("https://api.api-ninjas.com/v1/worldtime?city=$url"),
-      headers: {"X-Api-Key": Secrets.apiKey},
-    );
-    Map data = jsonDecode(response.body);
+
+    try {
+      Response response = await get(
+        Uri.parse("https://api.api-ninjas.com/v1/worldtime?city=$url"),
+        headers: {"X-Api-Key": Secrets.apiKey},
+      );
+      Map data = jsonDecode(response.body);
 
 
-    String daytime = data["datetime"];
-    //String offset = data["utc_offset"].substring(1,3);
+      String daytime = data["datetime"];
+      //String offset = data["utc_offset"].substring(1,3);
 
-    DateTime now = DateTime.parse(daytime);
-    //now = now.add(Duration(hours: int.parse(offset)));
+      DateTime now = DateTime.parse(daytime);
+      //now = now.add(Duration(hours: int.parse(offset)));
 
-    time = now.toString();
+      time = now.toString();
+    }
+
+    catch (e) {
+      print("Caught Error! $e");
+    }
   }
 }
