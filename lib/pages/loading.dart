@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'dart:convert';
+import 'package:my_world_clock_app/services/world_time.dart';
+
 
 class Loading extends StatefulWidget {
   const Loading({super.key});
@@ -10,20 +10,16 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-
-  void getData() async {
-    Response response = await get(
-      Uri.parse("https://api.api-ninjas.com/v1/worldtime?city=Berlin"),
-      headers: {'X-Api-Key': ''},
-    );
-    Map data = jsonDecode(response.body);
-    print(data["day"]);
+  void setUpTime() {
+    WorldTime instance = WorldTime(location: "Berlin", flag: "Germany.png", url: "Berlin");
+    instance.getTime();
   }
+
 
   @override
   void initState() {
     super.initState();
-    getData();
+    setUpTime();
   }
 
   @override
